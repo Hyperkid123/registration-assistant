@@ -27,15 +27,20 @@ export default defineMessages({
         description: 'Install the client and register your systems to Red Hat Insights',
         defaultMessage: 'Install the client and register your systems to Red Hat Insights'
     },
-    rhel8: {
-        id: 'rhel8',
-        description: 'RHEL 8',
-        defaultMessage: 'RHEL 8'
+    rhel84: {
+        id: 'rhel84',
+        description: 'RHEL 8.4',
+        defaultMessage: 'RHEL 8.4+'
+    },
+    rhel83: {
+        id: 'rhel83',
+        description: 'RHEL 8.3',
+        defaultMessage: 'RHEL 8.3-8.0'
     },
     rhel76: {
         id: 'rhel76',
         description: 'RHEL 7 & 6',
-        defaultMessage: 'RHEL 7 & 6'
+        defaultMessage: 'RHEL 7.9-6.4'
     },
     downloadPuppet: {
         id: 'downloadPuppet',

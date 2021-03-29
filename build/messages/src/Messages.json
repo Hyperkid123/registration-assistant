@@ -392,12 +392,16 @@
     "description": "Red Hat-supported versions"
   },
   "rhel76": {
-    "defaultMessage": "RHEL 7 & 6",
+    "defaultMessage": "RHEL 7.9-6.4",
     "description": "RHEL 7 & 6"
   },
-  "rhel8": {
-    "defaultMessage": "RHEL 8",
-    "description": "RHEL 8"
+  "rhel83": {
+    "defaultMessage": "RHEL 8.3-8.0",
+    "description": "RHEL 8.3"
+  },
+  "rhel84": {
+    "defaultMessage": "RHEL 8.4+",
+    "description": "RHEL 8.4"
   },
   "rhs": {
     "defaultMessage": "Red Hat Satellite",

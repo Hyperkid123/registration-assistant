@@ -43,22 +43,13 @@ const manualInstall = intl => <React.Fragment>
 const schema = intl => ({
     fields: [{
         component: componentTypes.RADIO,
-        name: 'how-are-systems-managed',
-        initializeOnMount: true,
-        label: intl.formatMessage(messages.systemsManaged),
-        options: [
-            { label: intl.formatMessage(messages.rhsm), value: 'rhsm' },
-            { label: intl.formatMessage(messages.rhs), value: 'rhs' },
-            { label: intl.formatMessage(messages.publicCloud), value: 'rhui' }]
-    }, {
-        component: componentTypes.RADIO,
         name: 'rhel-os',
         initializeOnMount: true,
         clearOnUnmount: true,
         label: intl.formatMessage(messages.operatingSystem),
-        condition: { when: 'how-are-systems-managed', pattern: /rhsm|rhui/ },
         options: [
-            { label: intl.formatMessage(messages.rhel8), value: 'rhel8' },
+            { label: intl.formatMessage(messages.rhel84), value: 'rhel84+' },
+            { label: intl.formatMessage(messages.rhel83), value: 'rhel83-' },
             { label: intl.formatMessage(messages.rhel76), value: 'rhel76' }
         ]
     }, {
@@ -75,6 +66,16 @@ const schema = intl => ({
         condition: { when: 'rhel-os', is: 'rhel76' }
     }, {
         component: componentTypes.RADIO,
+        name: 'how-are-systems-managed',
+        initializeOnMount: true,
+        label: intl.formatMessage(messages.systemsManaged),
+        condition: [{ when: 'rhel-os', pattern: /rhel83-|rhel76/ }],
+        options: [
+            { label: intl.formatMessage(messages.rhsm), value: 'rhsm' },
+            { label: intl.formatMessage(messages.rhs), value: 'rhs' },
+            { label: intl.formatMessage(messages.publicCloud), value: 'rhui' }]
+    },  {
+        component: componentTypes.RADIO,
         name: 'automation',
         initializeOnMount: true,
         clearOnUnmount: true,
@@ -83,7 +84,7 @@ const schema = intl => ({
             <FormHelperText className='ins-m-light' isHidden={false} inValidHelperText>
                 <span>{intl.formatMessage(messages.automationNote)}</span>
             </FormHelperText>,
-        condition: [{ when: 'how-are-systems-managed', is: 'rhsm' }, { when: 'rhel-os', pattern: /rhel8|rhel76/ }],
+        condition: [{ when: 'how-are-systems-managed', is: 'rhsm' }, { when: 'rhel-os', pattern: /rhel83-|rhel76/ }],
         options: [
             { label: intl.formatMessage(messages.ansible), value: 'ansible' },
             { label: intl.formatMessage(messages.puppet), value: 'puppet' },
@@ -108,7 +109,7 @@ const schema = intl => ({
                 {rhelNoAutomationSnippet(intl)}
             </TextContent>
         </Group>,
-        condition: [{ when: 'automation', is: 'no' }, { when: 'how-are-systems-managed', is: 'rhsm' }, { when: 'rhel-os', is: 'rhel8' }]
+        condition: [{ when: 'automation', is: 'no' }, { when: 'how-are-systems-managed', is: 'rhsm' }, { when: 'rhel-os', is: 'rhel83-' }]
     }, {
         component: 'custom-section',
         name: 'rhsm-ansible-1',
@@ -262,7 +263,7 @@ const schema = intl => ({
                 <Text component={TextVariants.p}>{intl.formatMessage(messages.deployInsightsOnCloudText)}</Text>
             </TextContent>
         </Group>,
-        condition: [{ when: 'how-are-systems-managed', is: 'rhui' }, { when: 'rhel-os', pattern: /rhel76|rhel8/ }]
+        condition: [{ when: 'how-are-systems-managed', is: 'rhui' }, { when: 'rhel-os', pattern: /rhel76|rhel83-/ }]
     }, {
         component: 'plain-text',
         name: 'rhui-rhel76-optional-part',
@@ -288,7 +289,7 @@ const schema = intl => ({
             <Title headingLevel='h3' size='md'>{intl.formatMessage(messages.registerInsightsClient)}</Title>
             {rhelNoAutomationSnippet(intl)}
         </React.Fragment>,
-        condition: [{ when: 'how-are-systems-managed', is: 'rhui' }, { when: 'rhel-os', pattern: /rhel76|rhel8/ }]
+        condition: [{ when: 'how-are-systems-managed', is: 'rhui' }, { when: 'rhel-os', pattern: /rhel76|rhel83-/ }]
     }]
 });
 

@@ -54,32 +54,36 @@ const Register = () => {
     const panelContent = (
         <DrawerPanelContent className="ins-m-light-300" hasNoBorder noPadding>
             <ul aria-label="Red Hat Insights tips">
-                <li>
-                    <DrawerHead>
-                        <Group type='title-group'>
-                            <TasksIcon size='md' />
-                            <Title headingLevel='h3' size="md">
-                                {intl.formatMessage(messages.preinstallationChecks)}
-                            </Title>
-                        </Group>
-                        {isExpanded && <DrawerActions>
-                            <DrawerCloseButton onClick={onCloseClick} />
-                        </DrawerActions>}
-                    </DrawerHead>
-                    <DrawerPanelBody>
-                        <FormSpy>
-                            {({ values }) => values['how-are-systems-managed'] === 'rhsm' ? (
-                                <RegisterWithRhsm intl={intl} />
-                            ) : values['how-are-systems-managed'] === 'rhs' ?
-                                <SubscribetoSatellite intl={intl} />
-                                : values['how-are-systems-managed'] === 'rhui' ?
-                                    <EnablingInsightsOnRhui intl={intl} />
-                                    : intl.formatMessage(messages.pleaseIndicate)
-                            }
-                        </FormSpy>
-                    </DrawerPanelBody>
-                </li>
-                <Divider component='li' />
+                <FormSpy>
+                    {({ values }) => values['rhel-os'] === 'rhel84+' ? '' : <React.Fragment>
+                        <li>
+                            <DrawerHead>
+                                <Group type='title-group'>
+                                    <TasksIcon size='md' />
+                                    <Title headingLevel='h3' size="md">
+                                        {intl.formatMessage(messages.preinstallationChecks)}
+                                    </Title>
+                                </Group>
+                                {isExpanded && <DrawerActions>
+                                    <DrawerCloseButton onClick={onCloseClick} />
+                                </DrawerActions>}
+                            </DrawerHead>
+                            <DrawerPanelBody>
+                                <FormSpy>
+                                    {({ values }) => values['how-are-systems-managed'] === 'rhsm' ? (
+                                        <RegisterWithRhsm intl={intl} />
+                                    ) : values['how-are-systems-managed'] === 'rhs' ?
+                                        <SubscribetoSatellite intl={intl} />
+                                        : values['how-are-systems-managed'] === 'rhui' ?
+                                            <EnablingInsightsOnRhui intl={intl} />
+                                            : intl.formatMessage(messages.pleaseIndicate)
+                                    }
+                                </FormSpy>
+                            </DrawerPanelBody>
+                        </li>
+                        <Divider component='li' />
+                    </React.Fragment>}
+                </FormSpy>
                 <li>
                     <DrawerPanelBody>
                         <DataCollection intl={intl} />
